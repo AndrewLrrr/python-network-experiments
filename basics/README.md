@@ -51,3 +51,21 @@ Body of request
 ```
 
 ### Replacing Netcat (netcat.py)
+_First terminal_
+```
+/Path/To/File/netcat.py -l -p 9999 -c
+```
+_Second terminal_
+```
+/Path/To/File/netcat.py -t localhost -p 9999
+<CTRL-D>
+<BHP:#>  pwd
+/Some/Path
+```
+
+### TCP Proxy (proxy.py)
+_Terminal_
+```
+sudo python proxy.py [localhost] 80 [remotehost] 80 False
+```
+Open browser or curl for example and try to connect your localhost on port 80.
