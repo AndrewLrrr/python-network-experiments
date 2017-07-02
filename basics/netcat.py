@@ -10,9 +10,9 @@ import subprocess
 listen = False
 command = False
 upload = False
-execute = ""
-target = ""
-upload_destination = ""
+execute = ''
+target = ''
+upload_destination = ''
 port = 0
 
 
@@ -42,7 +42,7 @@ def client_sender(buffer):
         # now wait for data back
         while True:
             recv_len = 1
-            response = ""
+            response = ''
             while recv_len:
                 data = client.recv(4096)
                 recv_len = len(data)
@@ -51,12 +51,12 @@ def client_sender(buffer):
                     break
             print response,
             # wait for more input
-            buffer = raw_input("")
-            buffer += "\n"
+            buffer = raw_input('')
+            buffer += '\n'
             # send it off
             client.send(buffer)
     except Exception as e:
-        print "[*] Exception! Exiting. " + str(e)
+        print '[*] Exception! Exiting. ' + str(e)
         # tear down the connection
         client.close()
 
@@ -65,7 +65,7 @@ def server_loop():
     global target
     # if no target is defined, we listen on all interfaces
     if not len(target):
-        target = "0.0.0.0"
+        target = '0.0.0.0'
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind((target, port))
     server.listen(5)
@@ -84,7 +84,7 @@ def client_handler(client_socket):
     # check for upload
     if len(upload_destination):
         # read in all of the bytes and write to our destination
-        file_buffer = ""
+        file_buffer = ''
 
         # keep reading data until none is available
         while True:
@@ -96,13 +96,13 @@ def client_handler(client_socket):
 
         # now we take these bytes and try to write them out
         try:
-            file_descriptor = open(upload_destination, "wb")
+            file_descriptor = open(upload_destination, 'wb')
             file_descriptor.write(file_buffer)
             file_descriptor.close()
             # acknowledge that we wrote the file out
-            client_socket.send("Successfully saved file to % s\r\n" % upload_destination)
+            client_socket.send('Successfully saved file to % s\r\n' % upload_destination)
         except:
-            client_socket.send("Failed to save file to %s\r\n" % upload_destination)
+            client_socket.send('Failed to save file to %s\r\n' % upload_destination)
 
     # check for command execution
     if len(execute):
@@ -114,11 +114,11 @@ def client_handler(client_socket):
     if command:
         while True:
             # show a simple prompt
-            client_socket.send("<BHP:#> ")
+            client_socket.send('<BHP:#> ')
 
             # now we receive until we see a linefeed (enter key)
-            cmd_buffer = ""
-            while "\n" not in cmd_buffer:
+            cmd_buffer = ''
+            while '\n' not in cmd_buffer:
                 cmd_buffer += client_socket.recv(1024)
 
             # send back the command output
@@ -135,7 +135,7 @@ def run_command(command):
     try:
         output = subprocess.check_output(command, stderr=subprocess.STDOUT, shell=True)
     except:
-        output = "Failed to execute command.\r\n"
+        output = 'Failed to execute command.\r\n'
     # send the output back to the client
     return output
 
@@ -155,30 +155,30 @@ def main():
     try:
         opts, args = getopt.getopt(
             sys.argv[1:],
-            "hle:t:p:cu:",
-            ["help", "listen", "execute", "target", "port", "command", "upload"]
+            'hle:t:p:cu:',
+            ['help', 'listen', 'execute', 'target', 'port', 'command', 'upload']
         )
     except getopt.GetoptError as err:
         print str(err)
         usage()
 
     for o, a in opts:
-        if o in ("-h", "--help"):
+        if o in ('-h', '--help'):
             usage()
-        elif o in ("-l", "--listen"):
+        elif o in ('-l', '--listen'):
             listen = True
-        elif o in ("-e", "--execute"):
+        elif o in ('-e', '--execute'):
             execute = a
-        elif o in ("-c", "--commandshell"):
+        elif o in ('-c', '--commandshell'):
             command = True
-        elif o in ("-u", "--upload"):
+        elif o in ('-u', '--upload'):
             upload_destination = a
-        elif o in ("-t", "--target"):
+        elif o in ('-t', '--target'):
             target = a
-        elif o in ("-p", "--port"):
+        elif o in ('-p', '--port'):
             port = int(a)
         else:
-            assert False, "Unhandled Option"
+            assert False, 'Unhandled Option'
 
     # are we going to listen or just send data from stdin?
     if not listen and len(target) and port > 0:
@@ -195,7 +195,7 @@ def main():
         server_loop()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
 
 

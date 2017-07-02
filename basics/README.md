@@ -44,6 +44,7 @@ ACK!
 ```
 _First terminal_
 ```
+[*] Accepted connection from: 127.0.0.1:59279
 [*] Received: GET / HTTP/1.1
 Host: localhost
 
