@@ -65,8 +65,21 @@ _Second terminal_
 ```
 
 ### TCP Proxy (proxy.py)
-_Terminal_
+_First terminal_
 ```
-sudo python proxy.py [localhost] 80 [remotehost] 80 False
+python proxy.py [localhost] 9000 [remotehost] 80 False
 ```
-Open browser or curl for example and try to connect your localhost on port 80.
+_Second terminal_
+```
+telnet 127.0.0.1 9000
+[...]
+GET / HTTP/1.1
+Host: [remotehost]
+Accept-Encoding: identity
+Cache-Control: no-cache
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36
+
+
+
+```
