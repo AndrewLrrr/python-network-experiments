@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import sys
 import socket
 import getopt
@@ -20,6 +18,7 @@ def usage():
     print """BHP Net Tool
     Usage: netcat.py -t target_host -p port
     -l --listen              - listen on [host]:[port] for incoming connections
+    -t --target              - target host
     -e --execute=file_to_run - execute the given file upon receiving a connection
     -c --command             - initialize a command shell
     -u --upload=destination  - upon receiving connection upload a file and write to [destination]

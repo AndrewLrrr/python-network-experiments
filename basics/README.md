@@ -54,11 +54,11 @@ Body of request
 ### Replacing Netcat (netcat.py)
 _First terminal_
 ```
-/Path/To/File/netcat.py -l -p 9999 -c
+python netcat.py -l -p 9999 -c
 ```
 _Second terminal_
 ```
-/Path/To/File/netcat.py -t localhost -p 9999
+python netcat.py -t localhost -p 9999
 <CTRL-D>
 <BHP:#>  pwd
 /Some/Path
